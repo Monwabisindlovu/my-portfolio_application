@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp YOUR PERSONAL WEATHER STATION</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Define CSS styles */
+        body {
+            background-color: #ADD8E6; /* Sky blue background */
+        }
+
+        .container {
+            background-color: #c45ec4; /* Black background */
+            padding: 20px;
+            border-radius: 10px;
+            color: rgb(196, 199, 204); /* White text for all elements */
+        }
+
+        .temperature {
+            background-color: #38afc7; /* Dark sky blue background for temperature */
+            padding: 5px;
+            border-radius: +5px;
+            color: rgb(240, 230, 230); /* White text for temperature */
+        }
+
+        .weather-details {
+            background-color: #3da1b7; /* Black background for other details */
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: 10px;
+            color: rgb(208, 202, 202); /* White text for other details */
+        }
+
+        .weather-details p {
+            margin-bottom: 20px;
+        }
+
+        .card-body img {
+            background-color: #90608c; /* Dark sky blue background for weather icon */
+            padding: -3px;
+            border-radius: -1px;
+        }
+
+        .daily-forecast {
+            background-color: #746ece; /* Sky blue background for daily forecast */
+            padding: 20px;
+            border-radius: 10px;
+            color: rgb(92, 6, 12); /* White text for all elements */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">WeatherApp -welcome to your personal weather station</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" class="form-control" id="location" name="location" value="{{ location }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Weather</button>
+        </form>
+        {% if weather_data %}
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Weather Details</h5>
+                <p class="temperature">Temperature: {{ '%.2f'|format(weather_data.temperature) }}°C</p>
+                <div class="weather-details">
+                    <p>Humidity: {{ weather_data.humidity }}%</p>
+                    <p>Latitude: {{ weather_data.latitude }}</p>
+                    <p>Longitude: {{ weather_data.longitude }}</p>
+                    <p>Wind Speed: {{ weather_data.wind_speed }} m/s</p>
+                    <p>{{ weather_data.weather_description }}</p>
+                </div>
+                <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}@2x.png" alt="{{ weather_data.weather_description }}">
+            </div>
+        </div>
+        <div class="daily-forecast mt-3">
+            <h5 class="text-center">Daily Forecast:</h5>
+            <div class="row">
+                <!-- Add your daily forecast details here -->
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
